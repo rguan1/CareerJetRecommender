@@ -1,7 +1,7 @@
 package careerjetrecommender;
 
 /**
- *
+ * Run this class to run the GUI. 
  * @author dzungnguyen
  */
 public class CareerJetRecommender {
