@@ -4,6 +4,7 @@
       <root url="jar://$USER_HOME$/Downloads/careerjet-api-client/CareerjetAPIClient.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/json-simple-1.1.1.jar!/" />
       <root url="file://$USER_HOME$/Downloads/httpcomponents-client-4.5.5-bin/httpcomponents-client-4.5.5/lib" />
+      <root url="jar://$USER_HOME$/Downloads/jsoup-1.11.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
