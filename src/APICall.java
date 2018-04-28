@@ -2,14 +2,11 @@ import com.careerjet.webservice.api.Client;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import jdk.nashorn.internal.scripts.JO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,7 +17,7 @@ import java.util.*;
 public class APICall {
 
     private Client myClient = new Client("en_US");
-    private WebClient htmlClient = new WebClient(BrowserVersion.FIREFOX_45);
+    private WebClient htmlClient = new WebClient(BrowserVersion.CHROME);
     public APICall() {
     }
 
@@ -55,7 +52,7 @@ public class APICall {
                 String salary = job.get("salary").toString();
                 String date = job.get("date").toString();
                 String site = job.get("site").toString();
-                String locationOutput = job.get("locations").toString();
+                String locationOutput = job.get("locations").toString();              
                 try {
                     String fullDescription = scrapeDescription(url);
                     JobPost jobPostObj = new JobPost(url, company, date, site,
