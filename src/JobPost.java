@@ -1,12 +1,17 @@
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
 /**
  * Created by guanr on 4/27/2018.
  */
-public class JobPost {
+public class JobPost implements Comparable<JobPost>{
     /**
      * Constructor for JobPost obj
      * holds relevant fields
      */
-
 
     private String jobLink;
     private String company;
@@ -15,7 +20,9 @@ public class JobPost {
     private String title;
     private String salary;
     private String description;
-    private String locations;
+    private String locations;  
+    private double cosineSimValue; 
+    private Map<String, Integer> termFrequency; 
 
     /**
      *
@@ -39,6 +46,20 @@ public class JobPost {
         this.salary = salary;
         this.description = description;
         this.locations = locations;
+        this.termFrequency = new HashMap<String, Integer>();
+        this.cosineSimValue = 0; 
+        processDescription();
+    }
+    
+    /**
+     * Constructor for the query input by the user.
+     * 
+     * @param description
+     * @param locations 
+     */
+    public JobPost(String description, String locations, String title) {
+        this(null, null, null, null, title, null, description, locations);
+        processDescription(); 
     }
 
     public String getJobLink() {
@@ -104,4 +125,71 @@ public class JobPost {
     public void setLocations(String locations) {
         this.locations = locations;
     }
+    
+    public void setCosineSimilarity(double cosineValue) {
+        this.cosineSimValue = cosineValue; 
+    }
+    /**
+     * Goes through the description of the job, pre-process it (turn terms
+     * into lower case, replace all non-alphabetic characters)
+     */
+    private void processDescription() {
+        Scanner sc = new Scanner(this.description); 
+        while (sc.hasNext()) {
+            String nextTerm = sc.next().replaceAll("[^A-Za-z0-9]", "").trim();
+            if (!(nextTerm.equals(""))) {
+                if (termFrequency.containsKey(nextTerm)) {
+                    int prevFrequency = termFrequency.get(nextTerm); 
+                    termFrequency.put(nextTerm, ++prevFrequency);
+                } else {
+                    termFrequency.put(nextTerm, 1); 
+                }
+            }
+        }
+        sc.close();
+    }
+    
+    /**
+     * Retrieves the frequency corresponding to the input term. 
+     * 
+     * @param term the term corresponding to the output frequency
+     * @return the frequency corresponding to the input term
+     */
+    public int getFrequency(String term) {
+        if (termFrequency.keySet().contains(term)) {
+            return termFrequency.get(term);
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
+     * Retrieves the set of unique terms in the document. 
+     * 
+     * @return the set of terms in the document. 
+     */
+    public Set<String> getTerms() {
+        return termFrequency.keySet(); 
+    }
+    
+    public double getCosineSimValue() {
+        return this.cosineSimValue; 
+    }
+    
+    @Override
+    public int compareTo(JobPost other) {
+        if (this.cosineSimValue > other.cosineSimValue) {
+            return -1;
+        } else if (this.cosineSimValue < other.cosineSimValue) {
+            return 1; 
+        } else {
+            return 0; 
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return title + ": " + locations; 
+    }
+    
 }
