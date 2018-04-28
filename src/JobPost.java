@@ -17,6 +17,18 @@ public class JobPost {
     private String description;
     private String locations;
 
+    /**
+     *
+     * @param jobLink
+     * @param company
+     * @param date
+     * @param site
+     * @param title
+     * @param salary
+     * @param description
+     * @param locations
+     * Constructor for an object that holds a single job posting.
+     */
     public JobPost(String jobLink, String company, String date, String site, String title,
                    String salary, String description, String locations) {
         this.jobLink = jobLink;
