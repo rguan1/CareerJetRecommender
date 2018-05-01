@@ -1,9 +1,13 @@
 import java.awt.Cursor;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 /**
@@ -21,16 +25,20 @@ public class Search extends javax.swing.JFrame {
     private int numResultsDisplay;
 
     public Search() {
-        initComponents();
-        results = new ArrayList<JobPost>();
-        numResultsDisplay = 0;
+        try {
+            initComponents();
+            results = new ArrayList<JobPost>();
+            numResultsDisplay = 0;
+        } catch (IOException e) {
+            System.out.println ("invalid image path");
+        }
     }
 
     /**
      * Initialize the GUI.
      */
     @SuppressWarnings("unchecked")
-    private void initComponents() {
+    private void initComponents() throws IOException {
 
         jPanel2 = new javax.swing.JPanel();
         jobEntered = new javax.swing.JTextField();
@@ -95,12 +103,14 @@ public class Search extends javax.swing.JFrame {
         jLabel6.setText("Because tinder won't get you a job.");
         jLabel6.setToolTipText("");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-matches.png")))
+        BufferedImage buffImage2 = ImageIO.read(new File("Resources/icons8-matches.png"));
+        jLabel8.setIcon(new javax.swing.ImageIcon(buffImage2));
         ; // NOI18N
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-home_filled" +
-                ".png"))); // NOI18N
+
+        BufferedImage buffImage3 = ImageIO.read(new File("Resources/icons8-home_filled.png"));
+        jLabel3.setIcon(new javax.swing.ImageIcon(buffImage3)); // NOI18N
         jLabel3.setText("HOME");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

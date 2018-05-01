@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author dzungnguyen
@@ -9,11 +13,15 @@ public class HomePage extends javax.swing.JFrame {
      * Creates the Home page of the program. Run this class to run the program.
      */
     public HomePage() {
-        initComponents();
+        try {
+            initComponents();
+        } catch (IOException e) {
+            System.out.println("invalid file location");
+        }
     }
 
     @SuppressWarnings("unchecked")
-    private void initComponents() {
+    private void initComponents() throws IOException {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -38,7 +46,8 @@ public class HomePage extends javax.swing.JFrame {
         jLabel6.setText("because tinder won't get you a job.");
         jLabel6.setToolTipText("");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-matches.png")))
+        BufferedImage buffImage = ImageIO.read(new File("Resources/icons8-matches.png"));
+        jLabel8.setIcon(new javax.swing.ImageIcon(buffImage));
         ; // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -95,7 +104,8 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-search.png")));
+        BufferedImage buffImage1 = ImageIO.read(new File("Resources/icons8-search.png"));
+        jLabel9.setIcon(new javax.swing.ImageIcon(buffImage1));
         // NOI18N
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
