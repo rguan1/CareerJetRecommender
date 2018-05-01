@@ -6,12 +6,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import javax.swing.JFrame;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author dzungnguyen
@@ -34,7 +28,6 @@ public class Search extends javax.swing.JFrame {
      * Initialize the GUI.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -252,10 +245,10 @@ public class Search extends javax.swing.JFrame {
 
         JobPost query = new JobPost(keywords, location, title);
 
-        //Scraping the API for 10 jobs
+        //Scraping the API for 20 jobs
         APICall singleScrape = new APICall();
         Set<JobPost> setOfJobs = singleScrape.callAPI(title,
-                location, sortBy, "20");
+                location, sortBy, "5");
 
         //Use the vector-space model to find the top 5 (or less) search results
         List<JobPost> listOfJobs = new ArrayList<>(setOfJobs);
@@ -277,6 +270,7 @@ public class Search extends javax.swing.JFrame {
                 warning.jLabel1.setText("No Job Found. Please try again.");
                 warning.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 warning.setLocationRelativeTo(this);
+                warning.pack();
                 warning.setVisible(true);
                 Search newSearch = new Search();
                 newSearch.setLocationRelativeTo(warning);
@@ -300,20 +294,20 @@ public class Search extends javax.swing.JFrame {
     }
 
     /**
-     * Display the top 5 search results
+     * Display the top n search results (n = number of results users chose to display)
      *
      * @param searchResults
      */
     private void makeTopMatchesScreen(ArrayList<JobPost> searchResults) {
-        TopMatches topResults = new TopMatches();
+        TopMatches topResults = new TopMatches(searchResults);
 
-        int i = 1;
+        int i = 0;
         for (JobPost job : searchResults) {
-            String result = i + ". " + job.getTitle() + ": " + "\n" +
-                    "Date Posted: " + searchResults.get(0).getDate() + "\n" +
-                    "Location: " + searchResults.get(0).getLocations() + "\n" +
-                    "Company: " + searchResults.get(0).getCompany() + "\n" +
-                    "URL: " + searchResults.get(0).getJobLink() + "\n" + "\n";
+            String result = Integer.toString(i) + ". " + job.getTitle() + ": " + "\n" +
+                    "Date Posted: " + searchResults.get(i).getDate() + "\n" +
+                    "Location: " + searchResults.get(i).getLocations() + "\n" +
+                    "Company: " + searchResults.get(i).getCompany() + "\n" +
+                    "URL: " + searchResults.get(i).getJobLink() + "\n" + "\n";
             i++;
             topResults.display.append(result);
         }
@@ -321,7 +315,6 @@ public class Search extends javax.swing.JFrame {
         topResults.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topResults.pack();
         topResults.setVisible(true);
-
     }
 
 

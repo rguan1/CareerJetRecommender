@@ -13,7 +13,7 @@ public class VectorSpaceModel {
     
     public VectorSpaceModel(JobCorpus corpus) {
         this.corpus = corpus;
-        this.tfIdfValues = new HashMap<JobPost, Map<String, Double>>();
+        this.tfIdfValues = new HashMap<>();
         createTfIdfs(); 
     }
     
