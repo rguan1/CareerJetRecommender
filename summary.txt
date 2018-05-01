@@ -1,0 +1,24 @@
+Name: careermatch 
+
+Description: Our project is a simple job search engine that retrieve information from the CareerJet API, along with some external libraries (see jars folder). The engine allows user to input a set of criteria (job title, job description, location) and using the Vector-Space model, it outputs a list of results that best match the user’s inputs. The user also then have an option to see more results, which are retrieved and ranked from using a system of scoring based on triadic closure. 
+
+Categories used
+0) Information retrieving the information 
+We utilized the CareerJet API to scrape some of the information that would be used for our search ranking and triadic closure functionality. However, we were unable to access the full job description from what the API returned, so we had to create a headless browser using HtmlUnit to access dynamically loaded data. We then were able to scrape the full description, and we added all this information for each post into a JobPost object. 
+
+1)	Search ranking based on tf-idf
+Similar to what we did in class with document rankings on HW-4, the engine uses the Vector-Space model to rank jobs based on their cosine similarity values when compared to the user’s query. The criteria that we used to determine cosine similarity are job title, job description, and location, all inputted by user. 
+
+2)	Search ranking based on triadic closure
+As we learned in class, we wanted to be able to recommend jobs to our users when a user decided that s/he liked a job. So, we wanted to create a notion of a strongly connected edges between job-posts so that when they created a strongly connected edge between the job post and user, that we could use the idea of triadic closure to connect users to job postings that are similar. We did this by looking at jobs which either were at the same company or contained some of the same words within the job title in which we had a threshold of similarity before the program considered two job postings to be strongly connected.
+
+Task breakdown:
+Ryan:
+- Used Json and external jar libraries to write methods that can retrieve and pre-process jobs based on search inputs, along with handling potential API call errors. 
+- Created JobPost object that can store the jobs retrieved from the API. 
+- Implemented Triadic Closure ranking feature,
+
+Dzung: 
+- Designed and implemented the GUI and connected it with the backend
+- Processed user's inputs into a query job post object to compare against jobs scraped 
+- Incorportated the Vector-Space model to rank jobs based on user's query
