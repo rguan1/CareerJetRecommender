@@ -55,4 +55,4 @@ public class TriadicClosure {
         return returnList;
     }
 
- }
+}
