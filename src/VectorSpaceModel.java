@@ -4,7 +4,8 @@ import java.util.Set;
 
 /**
  * Implements the Vector-Space model. 
- * Takes in a job corpus and generates the tf-idf vectors for each job post. 
+ * Takes in a job corpus and generates the tf-idf vectors for each job post.
+ *
  * @author dzungnguyen
  */
 public class VectorSpaceModel {
@@ -13,7 +14,7 @@ public class VectorSpaceModel {
     
     public VectorSpaceModel(JobCorpus corpus) {
         this.corpus = corpus;
-        this.tfIdfValues = new HashMap<JobPost, Map<String, Double>>();
+        this.tfIdfValues = new HashMap<>();
         createTfIdfs(); 
     }
     

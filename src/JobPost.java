@@ -46,7 +46,7 @@ public class JobPost implements Comparable<JobPost>{
         this.salary = salary;
         this.description = description;
         this.locations = locations;
-        this.termFrequency = new HashMap<String, Integer>();
+        this.termFrequency = new HashMap<>();
         this.cosineSimValue = 0; 
         processDescription();
     }
