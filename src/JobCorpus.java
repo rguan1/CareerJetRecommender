@@ -18,7 +18,7 @@ public class JobCorpus {
     public JobCorpus(List<JobPost> jobs) { 
         this.jobs = jobs;
          this.corpusSize = jobs.size(); 
-        this.invertedIndex = new HashMap<String, Set<JobPost>>();
+        this.invertedIndex = new HashMap<>();
         makeInvertedIndex(); 
     }
     

@@ -47,7 +47,7 @@ public class TriadicClosure {
 
         List<JobPost> returnList = new ArrayList<>();
         JobPostRanker lastRemovedJobPostRanker = orderedMaxHeap.remove();
-        while (lastRemovedJobPostRanker.getMatchValue() > 2 && orderedMaxHeap.size() >= 1) {
+        while (lastRemovedJobPostRanker.getMatchValue() > 1 && orderedMaxHeap.size() >= 1) {
             returnList.add(lastRemovedJobPostRanker.getActualJobPost());
             lastRemovedJobPostRanker = orderedMaxHeap.remove();
         }
@@ -55,4 +55,4 @@ public class TriadicClosure {
         return returnList;
     }
 
- }
+}

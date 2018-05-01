@@ -1,5 +1,6 @@
 import com.careerjet.webservice.api.Client;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.json.simple.JSONArray;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * Class that deals with the data pulling from the CareerJet API.
+ *
  * Created by guanr on 4/21/2018.
  */
 public class APICall {
@@ -44,24 +47,25 @@ public class APICall {
 
         if (output.get("type").equals("JOBS")) {
             JSONArray jobReturn = (JSONArray) output.get("jobs");
-            for (Object obj : jobReturn) {
-                JSONObject job = (JSONObject) obj;
-                String url = job.get("url").toString();
-                String title = job.get("title").toString();
-                String company = job.get("company").toString();
-                String salary = job.get("salary").toString();
-                String date = job.get("date").toString();
-                String site = job.get("site").toString();
-                String locationOutput = job.get("locations").toString();              
-                try {
-                    String fullDescription = scrapeDescription(url);
-                    JobPost jobPostObj = new JobPost(url, company, date, site,
-                            title, salary, fullDescription, locationOutput );
-                    setOfJobPosts.add(jobPostObj);
-                } catch (IOException e) {
-                    System.out.println (title + " " + company + " url of job could not be scraped");
+            if (jobReturn != null) {
+                for (Object obj : jobReturn) {
+                    JSONObject job = (JSONObject) obj;
+                    String url = job.get("url").toString();
+                    String title = job.get("title").toString();
+                    String company = job.get("company").toString();
+                    String salary = job.get("salary").toString();
+                    String date = job.get("date").toString();
+                    String site = job.get("site").toString();
+                    String locationOutput = job.get("locations").toString();
+                    try {
+                        String fullDescription = scrapeDescription(url);
+                        JobPost jobPostObj = new JobPost(url, company, date, site,
+                                title, salary, fullDescription, locationOutput );
+                        setOfJobPosts.add(jobPostObj);
+                    } catch (IOException e) {
+                        System.out.println (title + " " + company + " url of job could not be scraped");
+                    }
                 }
-
             }
         }
         return setOfJobPosts;
@@ -76,22 +80,22 @@ public class APICall {
      * @throws IOException
      */
     public String scrapeDescription(String url) throws IOException {
-        Connection.Response response = Jsoup.connect(url).followRedirects(true).execute();
-        String firstURL = response.url().toString();
-        System.out.println(firstURL);
-/*        Connection.Response response2 = Jsoup.connect(firstURL).followRedirects(true).execute();
-        String secondURL = response2.url().toString();
-        System.out.println(secondURL);*/
-        HtmlPage page = htmlClient.getPage(firstURL);
-        Document doc = Jsoup.parse(page.asXml());
-        String text = doc.text();
-        //String noPuncText = text.toLowerCase().replaceAll("\\p{Punct}", "");
-        String noPuncText = text.toLowerCase();
-        System.out.println(noPuncText);
-        System.out.println("\n\n");
-        return noPuncText;
-
-
+            Connection.Response response = Jsoup.connect(url).followRedirects(true).execute();
+            String firstURL = response.url().toString();
+            System.out.println(firstURL);
+        try {
+            HtmlPage page = htmlClient.getPage(firstURL);
+            Document doc = Jsoup.parse(page.asXml());
+            String text = doc.text();
+            String noPuncText = text.toLowerCase();
+            System.out.println(noPuncText);
+            System.out.println("\n\n");
+            return noPuncText;
+        } catch (ScriptException e) {
+            String failString = "no Description available";
+            System.out.println(failString);
+            return "";
+        }
     }
 
 
