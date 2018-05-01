@@ -14,25 +14,29 @@ import java.util.*;
 
 /**
  * Class that deals with the data pulling from the CareerJet API.
- *
+ * <p>
  * Created by guanr on 4/21/2018.
  */
 public class APICall {
 
     private Client myClient = new Client("en_US");
     private WebClient htmlClient = new WebClient(BrowserVersion.CHROME);
+
     public APICall() {
     }
 
     /**
      * method that pulls data from the API. It will add the data to a Set that will be returned
-     * @param keyword this is the keyword that will determine search results
-     * @param location this is the physical location that will determine where you look for jobs
-     * @param sortType three options: relevance, date, salary
+     *
+     * @param keyword       this is the keyword that will determine search results
+     * @param location      this is the physical location that will determine where you look for
+     *                      jobs
+     * @param sortType      three options: relevance, date, salary
      * @param numberResults this is the number of result they want us to return
      * @return Set<JobPost> which will hold all the jobs that are scraped
      */
-    public Set<JobPost> callAPI(String keyword, String location, String sortType, String numberResults) {
+    public Set<JobPost> callAPI(String keyword, String location, String sortType, String
+            numberResults) {
         Map<String, String> arguments = new HashMap<>();
         Set<JobPost> setOfJobPosts = new HashSet<>();
         arguments.put("keywords", keyword);
@@ -60,10 +64,11 @@ public class APICall {
                     try {
                         String fullDescription = scrapeDescription(url);
                         JobPost jobPostObj = new JobPost(url, company, date, site,
-                                title, salary, fullDescription, locationOutput );
+                                title, salary, fullDescription, locationOutput);
                         setOfJobPosts.add(jobPostObj);
                     } catch (IOException e) {
-                        System.out.println (title + " " + company + " url of job could not be scraped");
+                        System.out.println(title + " " + company + " url of job could not be " +
+                                "scraped");
                     }
                 }
             }
@@ -75,14 +80,15 @@ public class APICall {
     /**
      * method that scrapes directly from the API link. It utilizes both jsoup and
      * htmlUnit (java browser to load dynamic website data).
+     *
      * @param url
      * @return String description of the job
      * @throws IOException
      */
     public String scrapeDescription(String url) throws IOException {
-            Connection.Response response = Jsoup.connect(url).followRedirects(true).execute();
-            String firstURL = response.url().toString();
-            System.out.println(firstURL);
+        Connection.Response response = Jsoup.connect(url).followRedirects(true).execute();
+        String firstURL = response.url().toString();
+        System.out.println(firstURL);
         try {
             HtmlPage page = htmlClient.getPage(firstURL);
             Document doc = Jsoup.parse(page.asXml());
@@ -97,7 +103,6 @@ public class APICall {
             return "";
         }
     }
-
 
 
 }
