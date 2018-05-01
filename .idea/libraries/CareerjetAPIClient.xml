@@ -6,6 +6,7 @@
       <root url="file://$USER_HOME$/Downloads/httpcomponents-client-4.5.5-bin/httpcomponents-client-4.5.5/lib" />
       <root url="jar://$USER_HOME$/Downloads/jsoup-1.11.2.jar!/" />
       <root url="file://$USER_HOME$/Downloads/htmlunit-2.30-bin (1)/htmlunit-2.30/lib" />
+      <root url="jar://$USER_HOME$/Downloads/AbsoluteLayout.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
