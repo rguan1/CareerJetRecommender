@@ -1,8 +1,5 @@
 # CareerJetRecommender
 
-## Mockups:
-
-
 ## SETTING UP THE PROJECT IN YOUR IDE:
 1) Import the project into your IDE like you normally would.
 2) Add all the .jars in the jars folder provided to your project.
