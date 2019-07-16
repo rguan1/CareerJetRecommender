@@ -1,4 +1,4 @@
-# CareerJetRecommender
+# careermatch
 
 ## SETTING UP THE PROJECT IN YOUR IDE:
 1) Import the project into your IDE like you normally would.
